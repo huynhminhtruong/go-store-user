@@ -7,3 +7,9 @@ type DBPort interface {
 	GetUser(id int64) *domain.GetUserResponse
 	GetListUsers() *domain.ListUserResponse
 }
+
+type APIPort interface {
+	Save(user *domain.User) *domain.CreateUserResponse
+	GetUser(id int64) *domain.GetUserResponse
+	GetListUsers() *domain.ListUserResponse
+}
