@@ -1,0 +1,53 @@
+syntax="proto3";
+
+import "google/api/annotations.proto";
+
+option go_package="github.com/huynhminhtruong/go-store-user/src/services/user";
+
+message RegisterUserRequest {
+    string username = 1;
+    string password = 2;
+    string email = 3;
+    string phone_number = 4;
+    string location = 5;
+}
+
+message RegisterUserResponse {
+    int64 user_id = 1;
+}
+
+message GetUserRequest {
+    int64 user_id = 1;
+}
+
+message GetUserResponse {
+    string username = 1;
+    string email = 3;
+    string phone_number = 4;
+    string location = 5;
+}
+
+message ListUsersRequest {}
+
+message ListUsersResponse {
+    repeated GetUserResponse users = 1;
+}
+
+service UserService {
+    rpc Create(RegisterUserRequest) returns (RegisterUserResponse){
+        option (google.api.http) = {
+            post: "/v1/users/register"
+            body:"*"
+        };
+    }
+    rpc ListUsers(ListUsersRequest) returns (ListUsersResponse) {
+        option (google.api.http) = {
+            get: "/v1/users"
+        };
+    }
+    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+        option (google.api.http) = {
+          get: "/v1/users/{user_id}"
+        };
+    }
+}
