@@ -24,12 +24,12 @@
 
 1. **Tạo Service** trong Kong cho từng dịch vụ backend (gRPC gateway endpoint)
 
-   Ví dụ: nếu bạn có một dịch vụ `BookService` và `grpc-gateway` đã tạo các endpoint HTTP tại `http://user:8083`, bạn có thể cấu hình như sau:
+   Ví dụ: nếu bạn có một dịch vụ `UserService` và `grpc-gateway` đã tạo các endpoint HTTP tại `http://<grpc-gateway>:8081`, bạn có thể cấu hình như sau:
 
    ```bash
    curl -i -X POST http://localhost:8001/services \
      --data "name=user-service" \
-     --data "url=http://user:8083"
+     --data "url=http://<grpc-gateway>:8081"
    ```
    Lấy danh sách các service đã tạo:
 
@@ -45,7 +45,7 @@
      --data "strip_path=false"
    ```
 
-   Thao tác này sẽ cấu hình một route `/v1/users` trong Kong. Khi có một request đến `http://kong-host:8000/v1/users`, Kong sẽ chuyển tiếp tới `http://<grpc-gateway>:8083/v1/users`
+   Thao tác này sẽ cấu hình một route `/v1/users` trong Kong. Khi có một request đến `http://kong-host:8000/v1/users`, Kong sẽ chuyển tiếp tới `http://<grpc-gateway>:8081/v1/users`
 
    Lấy danh sách các routes của 1 service cụ thể:
 
