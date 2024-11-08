@@ -19,5 +19,3 @@
 - **Scalability**: User Service và Authentication-Authorization Service tách biệt giúp hệ thống mở rộng dễ dàng khi số lượng người dùng tăng
 - **Security**: Mật khẩu được lưu trữ an toàn bằng cách mã hóa, và token có thời hạn cụ thể
 - **Flexibility**: Khi cần, bạn có thể thêm third-party auth (như Google OAuth) hoặc mở rộng JWT với các quyền chi tiết hơn
-
-Thiết kế này giúp bạn có một nền tảng bảo mật, linh hoạt và dễ dàng mở rộng trong tương lai
