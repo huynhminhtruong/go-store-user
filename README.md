@@ -10,12 +10,12 @@
      - **API**: Thiết kế các API RESTful cho đăng ký và quản lý tài khoản
    - **Triển khai**: Đưa User Service vào file `docker-compose.yml` để chạy cùng với các service khác trong hệ thống
 
-### **Relationship between user-service and auth-service**
+### 2. **Relationship between user-service and auth-service**
 1. **Đăng ký**: Người dùng gọi API của User Service để tạo tài khoản mới
 2. **Login**: Sau khi đăng ký, người dùng đăng nhập qua Authentication-Authorization Service và nhận được token
 3. **Sử dụng token**: Khi gọi API từ các dịch vụ khác (vd: Order Service để lấy danh sách đơn hàng), token sẽ được gửi kèm trong request headers. Các service sẽ dùng Authentication-Authorization Service để xác thực token và quyết định cấp quyền truy cập
 
-### **Ưu điểm của thiết kế này**
+### 3. **Ưu điểm của thiết kế này**
 - **Scalability**: User Service và Authentication-Authorization Service tách biệt giúp hệ thống mở rộng dễ dàng khi số lượng người dùng tăng
 - **Security**: Mật khẩu được lưu trữ an toàn bằng cách mã hóa, và token có thời hạn cụ thể
 - **Flexibility**: Khi cần, bạn có thể thêm third-party auth (như Google OAuth) hoặc mở rộng JWT với các quyền chi tiết hơn
