@@ -66,16 +66,15 @@ func (a Adapter) GetListUsers() *domain.ListUserResponse {
 	}
 }
 
-func (a Adapter) Save(user *domain.UserInformation) *domain.CreateUserResponse {
-	newUser := domain.NewUser(user)
-	result := a.db.Create(&newUser)
-	if result.Error != nil {
+func (a Adapter) Save(user *domain.User) *domain.CreateUserResponse {
+	usr := a.db.Create(user)
+	if usr.Error != nil {
 		return &domain.CreateUserResponse{}
 	}
 
 	return &domain.CreateUserResponse{
-		UserID:       newUser.ID,
-		RowsAffected: result.RowsAffected,
-		ErrorMessage: result.Error,
+		UserID:       user.ID,
+		RowsAffected: usr.RowsAffected,
+		ErrorMessage: usr.Error,
 	}
 }

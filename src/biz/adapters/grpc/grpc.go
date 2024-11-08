@@ -15,7 +15,7 @@ func (a Adapter) Create(ctx context.Context, request *user.RegisterUserRequest) 
 		Location: request.GetLocation(),
 	})
 	// call this method from ports.APIPort interface and Application is already implement it
-	result := a.api.Save(newUser)
+	result := a.api.CreateUser(newUser)
 	if result.ErrorMessage != nil {
 		return nil, result.ErrorMessage
 	}
