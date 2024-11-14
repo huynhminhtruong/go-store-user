@@ -1,6 +1,6 @@
 # global environments
 # services
-SERVICE = book-service
+SERVICE = user-service
 KONG_REGISTER_SERVICE_URL = "url=http://gateway:8081"
 KONG_REGISTER_SERVICE_NAME = "name=user-service"
 
