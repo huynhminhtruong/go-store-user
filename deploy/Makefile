@@ -5,8 +5,8 @@ KONG_REGISTER_SERVICE_URL = "url=http://gateway:8081"
 KONG_REGISTER_SERVICE_NAME = "name=user-service"
 
 # endpoint urls
-KONG_ROUTE_PATH_GET_ONE = "paths[]=/v1/users"
-KONG_ROUTE_PATH_GET_MANY = "paths[]=/v1/users/{user_id}"
+KONG_ROUTE_PATH_GET_ONE = "paths[]=/v1/users/{user_id}"
+KONG_ROUTE_PATH_GET_MANY = "paths[]=/v1/users"
 KONG_ROUTE_PATH_POST = "paths[]=/v1/users"
 
 # options
