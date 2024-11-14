@@ -19,3 +19,51 @@
 - **Scalability**: User Service và Authentication-Authorization Service tách biệt giúp hệ thống mở rộng dễ dàng khi số lượng người dùng tăng
 - **Security**: Mật khẩu được lưu trữ an toàn bằng cách mã hóa, và token có thời hạn cụ thể
 - **Flexibility**: Khi cần, bạn có thể thêm third-party auth (như Google OAuth) hoặc mở rộng JWT với các quyền chi tiết hơn
+
+# Cấu hình các Service và Route trong Kong
+
+1. **Tạo Service** trong Kong cho từng dịch vụ backend (gRPC gateway endpoint)
+
+   Ví dụ: nếu bạn có một dịch vụ `UserService` và `grpc-gateway` đã tạo các endpoint HTTP tại `http://<grpc-gateway>:8081`, bạn có thể cấu hình như sau:
+
+   ```bash
+   curl -i -X POST http://localhost:8001/services \
+     --data "name=user-service" \
+     --data "url=http://<grpc-gateway>:8081"
+   ```
+   Lấy danh sách các service đã tạo:
+
+   ```bash
+   curl -i -X GET http://localhost:8001/services
+   ```
+
+2. **Tạo Route** để xác định đường dẫn cho từng endpoint HTTP mà bạn muốn nhận từ Kong.
+
+   ```bash
+   curl -i -X POST http://localhost:8001/services/user-service/routes \
+     --data "paths[]=/v1/users" \
+     --data "strip_path=false"
+   ```
+
+   Thao tác này sẽ cấu hình một route `/v1/users` trong Kong. Khi có một request đến `http://kong-host:8000/v1/users`, Kong sẽ chuyển tiếp tới `http://<grpc-gateway>:8081/v1/users`
+
+   Lấy danh sách các routes của 1 service cụ thể:
+
+   ```bash
+   curl -i -X GET http://localhost:8001/services/${SERVICE_NAME}/routes
+   ```
+
+3. **Tùy chỉnh các route** để xác định các endpoint cụ thể nếu bạn có nhiều phương thức trong `UserService` (như `Create`, `GetUser`, `ListUsers`)
+
+   Ví dụ: để định tuyến `GET /v1/users/{user_id}` tới `grpc-gateway`:
+   ```bash
+   curl -i -X POST http://localhost:8001/services/user-service/routes \
+     --data "paths[]=/v1/users/{user_id}" \
+     --data "methods[]=GET"
+   ```
+
+4. Xóa route theo ID
+
+   ```bash
+   curl -i -X DELETE http://localhost:8001/routes/${ROUTE_ID}
+   ```
